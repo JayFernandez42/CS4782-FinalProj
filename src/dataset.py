@@ -28,7 +28,7 @@ class VQGTensorDataset(Dataset):
         tensor_path = os.path.join(self.base_dir, row["tensor_path"])
         image_tensor = torch.load(tensor_path).float()
         
-        question = str(row["questions"]).lower()
+        question = str(row["questions"]).split('---')[0].strip().lower()
         tokens = re.findall(r"\w+|[^\w\s]", question, re.UNICODE)
 
         indices = [self.vocab.get(token, self.vocab['<unk>']) for token in tokens]

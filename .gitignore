@@ -1,0 +1,24 @@
+# Ignore all data and intermediate training artifacts
+data/
+*.zip
+*.pt
+*.csv
+
+# But keep sample config or structure if needed
+!data/.gitkeep
+
+# If you want to include specific CSVs like schema examples
+# !data/example_schema.csv
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# VSCode-specific files
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Colab and notebook metadata
+*.ipynb~
