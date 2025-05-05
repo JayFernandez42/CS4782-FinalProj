@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 import random
 
 class MAEDataset(Dataset):
-    def __init__(self, tensor_paths, patch_size=16, mask_ratio=0.75):
+    def __init__(self, tensor_paths, patch_size=16, mask_ratio=0.5):
         self.tensor_paths = tensor_paths
         self.patch_size = patch_size
         self.mask_ratio = mask_ratio

@@ -12,30 +12,47 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset, DataLoader
 import re
+from pathlib import Path
+
+TENSOR_ROOT = Path("data") / "tensor_data"
 
 class VQGTensorDataset(Dataset):
-    def __init__(self, csv_path, vocab, max_length=20, base_dir=""):
+    def __init__(self, csv_path, vocab, max_length=20):
         self.df = pd.read_csv(csv_path)
-        self.vocab = vocab
+        self.vocab  = vocab
         self.max_length = max_length
-        self.base_dir = base_dir
+
+        # dataset.py lives in src/, so project_root is one level up:
+        this_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(this_dir)
+        self.tensor_root = os.path.join(project_root, "data", "tensor_data")
 
     def __len__(self):
         return len(self.df)
-
+    
     def __getitem__(self, idx):
-        row = self.df.iloc[idx]
-        tensor_path = os.path.join(self.base_dir, row["tensor_path"])
+        row      = self.df.iloc[idx]
+        filename = row["tensor_path"].strip()  # e.g. "bing_val_abc123.pt"
+
+        # ALWAYS prefix with the tensor folder:
+        tensor_path = TENSOR_ROOT / filename      # Path("data/tensor_data/bing_val_abc123.pt")
+
+        if not tensor_path.exists():
+            raise FileNotFoundError(f"Tensor not found at {tensor_path}")
+
+        # torch.load accepts a Path, but if yours errors you can cast to str():
         image_tensor = torch.load(tensor_path).float()
-        
+
+        # … your existing question→indices logic …
         question = str(row["questions"]).split('---')[0].strip().lower()
         tokens = re.findall(r"\w+|[^\w\s]", question, re.UNICODE)
 
         indices = [self.vocab.get(token, self.vocab['<unk>']) for token in tokens]
         indices = [self.vocab['<start>']] + indices + [self.vocab['<end>']]
         indices = indices[:self.max_length] + [self.vocab['<pad>']] * (self.max_length - len(indices))
-        
+
         return image_tensor, torch.tensor(indices), question
+
 
 
 def load_csv_paths(base_dir):

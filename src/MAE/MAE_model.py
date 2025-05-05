@@ -19,29 +19,32 @@ class EncoderCNN(nn.Module):
         out = self.encoder(x)  # [B * N, embed_dim]
         return out.view(B, N, -1)
 
-class DecoderMLP(nn.Module):
+class DecoderConv(nn.Module):
     def __init__(self, embed_dim=256, patch_size=16):
         super().__init__()
-        self.patch_dim = 3 * patch_size * patch_size
-        self.decoder = nn.Sequential(
-            nn.Linear(embed_dim, 512),
-            nn.ReLU(),
-            nn.Linear(512, self.patch_dim)
-        )
         self.patch_size = patch_size
+        self.decoder = nn.Sequential(
+            nn.Linear(embed_dim, 128 * 4 * 4),
+            nn.ReLU(),
+            nn.Unflatten(1, (128, 4, 4)),
+            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),
+            nn.ReLU(),
+            nn.ConvTranspose2d(64, 3, kernel_size=4, stride=2, padding=1),
+            nn.Sigmoid()
+        )
 
     def forward(self, x):
         B, N, D = x.shape
-        out = self.decoder(x.view(B * N, D))
-        return out.view(B, N, 3, self.patch_size, self.patch_size)
+        x = self.decoder(x.view(B * N, D))
+        return x.view(B, N, 3, self.patch_size, self.patch_size)
 
 class MaskedAutoencoderCNN(nn.Module):
     def __init__(self, embed_dim=256, patch_size=16):
         super().__init__()
         self.encoder = EncoderCNN(embed_dim)
-        self.decoder = DecoderMLP(embed_dim, patch_size)
+        self.decoder = DecoderConv(embed_dim, patch_size)
 
     def forward(self, x, mask):
-        encoded = self.encoder(x)  # [B, N, D]
-        reconstructed = self.decoder(encoded)  # [B, N, 3, p, p]
+        encoded = self.encoder(x)
+        reconstructed = self.decoder(encoded)
         return reconstructed
