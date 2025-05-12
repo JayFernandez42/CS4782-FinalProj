@@ -1,4 +1,4 @@
-`# Visual Question Generation using Transformer Decoders and Image Pretraining
+# Visual Question Generation using Transformer Decoders and Image Pretraining
 
 ## INTRODUCTION
 -----------------------------------------------------------------------------------------------------
