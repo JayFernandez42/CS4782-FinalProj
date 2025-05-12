@@ -44,3 +44,9 @@ He, K., et al. Deep Residual Learning for Image Recognition. CVPR, 2016. [https:
 Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision. arXiv, 2021. [https://github.com/openai/CLIP](url)
 
 Sennrich, R., Haddow, B., and Birch, A. Improving Neural Machine Translation Models with Monolingual Data. arXiv, 2015. [https://arxiv.org/abs/1511.06709](url)
+
+## ACKNOWLEDGEMENTS
+-----------------------------------------------------------------------------------------------------
+
+This project was a part of a final project for a course at Cornell University called CS 4782/5782: Intro to Deep Learning, hosted by Killian Weinberger Q. and Jennifer J. Sun. We recognize their ability to allocate google cloud compute for the course, and thank all institutions accordingly.
+
