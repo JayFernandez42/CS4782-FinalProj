@@ -1,4 +1,4 @@
-# Visual Question Generation using Transformer Decoders and Image Pretraining
+`# Visual Question Generation using Transformer Decoders and Image Pretraining
 
 ## INTRODUCTION
 -----------------------------------------------------------------------------------------------------
@@ -19,6 +19,14 @@ C) Using pretraining from VQA-style datasets to improve fluency and syntax
 
 D) Performing inference from arbitrary images using a trained question generator
 
+## Chosen Result
+-----------------------------------------------------------------------------------------------------
+The original paper benchmarked various generative models, including retrieval-based methods, maximum entropy pipelines, and a gated recurrent neural network (GRNN) trained to ask questions. Their evaluation demonstrated that GRNN models most effectively captured human-like question patterns, particularly on their event-centric Bing and Flickr datasets.
+
+We aimed to replicate this result: specifically, the ability of an end-to-end generative model (in our case, a Transformer-based decoder) to generate abstract, context-aware questions about an image. Our central goal was to replicate their qualitative insight: "models can generate plausible questions, but there's still a gap to human naturalness."
+
+**Directory structure:**
+
 
 ## PROJECT SETUP INSTRUCTIONS
 -----------------------------------------------------------------------------------------------------
@@ -29,7 +37,6 @@ D) Performing inference from arbitrary images using a trained question generator
 
 3) Open and run `ImageToQuestion.ipynb` for the full training and evaluation pipeline
 
-**Directory structure:**
 
 
 
