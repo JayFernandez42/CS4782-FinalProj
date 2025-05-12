@@ -42,21 +42,20 @@ We aimed to replicate this result: specifically, the ability of an end-to-end ge
 
 ## FILE INFO
 -----------------------------------------------------------------------------------------------------
+**model.py / model2.py:** Encapsulate the transformer architecture (with use_resnet toggles and token embedding)
 
-**ImageToQuestion.ipynb**  
-Main driver notebook that loads data, trains models, evaluates inference, and visualizes examples
+**train.py:** Contains the train_model() loop used across transformer and LSTM architectures
 
-**prepare_gqa_for_vqg.py**  
-Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning
+**dataset.py:** Customized VQGTensorDataset class that can work with raw .jpg images or .pt tensor files
 
-**train.py**  
-Contains the `train_model()` loop used across transformer and LSTM architectures
+**prepare_gqa_for_vqg.py:** Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning
 
-**model.py / model2.py**  
-Encapsulate the transformer architecture (with `use_resnet` toggles and token embedding)
+**config.py:** Stores centralized hyperparameters and device setup for reproducibility and clean tuning (e.g., BATCH_SIZE, EMBED_SIZE, DEVICE)
 
-**dataset.py**  
-Customized `VQGTensorDataset` class that can work with raw `.jpg` images or `.pt` tensor files
+**eval.py:**
+Includes both test_loss() for evaluating test performance and generate_question() for forward-generating text from a model and image
+
+**utils.py:** Provides support functions for vocabulary construction, token indexing, and preprocessing; includes build_vocab() used across training and evaluation
 
 
 ## SAMPLE INFERENCE
