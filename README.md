@@ -32,6 +32,36 @@ D) Performing inference from arbitrary images using a trained question generator
 **Directory structure:**
 
 
+
+## FILE INFO
+-----------------------------------------------------------------------------------------------------
+
+**ImageToQuestion.ipynb**  
+Main driver notebook that loads data, trains models, evaluates inference, and visualizes examples
+
+**prepare_gqa_for_vqg.py**  
+Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning
+
+**train.py**  
+Contains the `train_model()` loop used across transformer and LSTM architectures
+
+**model.py / model2.py**  
+Encapsulate the transformer architecture (with `use_resnet` toggles and token embedding)
+
+**dataset.py**  
+Customized `VQGTensorDataset` class that can work with raw `.jpg` images or `.pt` tensor files
+
+
+## SAMPLE INFERENCE
+-----------------------------------------------------------------------------------------------------
+
+Once trained, a model can generate a natural-language question from a single image using `generate_question()`
+in eval.py. Image inputs are accepted as raw .jpg files.
+
+<img width="791" alt="Screenshot 2025-05-12 at 6 07 54 PM" src="https://github.com/user-attachments/assets/8d49ea0b-1db6-4868-8edd-3790c2c50084" /> | <img width="785" alt="Screenshot 2025-05-12 at 6 09 37 PM" src="https://github.com/user-attachments/assets/e52c7bce-151b-4c70-9516-cb09fa821bf5" />
+
+
+
 ## REFERENCES
 -----------------------------------------------------------------------------------------------------
 
