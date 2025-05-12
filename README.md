@@ -87,5 +87,5 @@ Sennrich, R., Haddow, B., and Birch, A. Improving Neural Machine Translation Mod
 ## ACKNOWLEDGEMENTS
 -----------------------------------------------------------------------------------------------------
 
-This project was a part of a final project for a course at Cornell University called CS 4782/5782: Intro to Deep Learning, hosted by Killian Weinberger Q. and Jennifer J. Sun. We recognize their ability to allocate google cloud compute for the course, and thank all institutions accordingly.
+This project was a part of a final project for a course at Cornell University called CS 4782/5782: Intro to Deep Learning, hosted by Killian Q. Weinberger and Jennifer J. Sun. We recognize their ability to allocate google cloud compute for the course, and thank all institutions accordingly.
 
