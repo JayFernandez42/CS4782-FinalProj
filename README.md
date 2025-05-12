@@ -58,7 +58,9 @@ Customized `VQGTensorDataset` class that can work with raw `.jpg` images or `.pt
 Once trained, a model can generate a natural-language question from a single image using `generate_question()`
 in eval.py. Image inputs are accepted as raw .jpg files.
 
-<img width="791" alt="Screenshot 2025-05-12 at 6 07 54 PM" src="https://github.com/user-attachments/assets/8d49ea0b-1db6-4868-8edd-3790c2c50084" /> | <img width="785" alt="Screenshot 2025-05-12 at 6 09 37 PM" src="https://github.com/user-attachments/assets/e52c7bce-151b-4c70-9516-cb09fa821bf5" />
+| Image 1 | Image 2 |
+|--------|---------|
+| <img width="791" alt="Screenshot 2025-05-12 at 6 07 54 PM" src="https://github.com/user-attachments/assets/8d49ea0b-1db6-4868-8edd-3790c2c50084" /> | <img width="785" alt="Screenshot 2025-05-12 at 6 09 37 PM" src="https://github.com/user-attachments/assets/e52c7bce-151b-4c70-9516-cb09fa821bf5" /> |
 
 
 
