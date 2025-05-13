@@ -21,9 +21,24 @@ D) Performing inference from arbitrary images using a trained question generator
 
 ## Chosen Result
 -----------------------------------------------------------------------------------------------------
+
 The original paper benchmarked various generative models, including retrieval-based methods, maximum entropy pipelines, and a gated recurrent neural network (GRNN) trained to ask questions. Their evaluation demonstrated that GRNN models most effectively captured human-like question patterns, particularly on their event-centric Bing and Flickr datasets.
 
 We aimed to replicate this result: specifically, the ability of an end-to-end generative model (in our case, a Transformer-based decoder) to generate abstract, context-aware questions about an image. Our central goal was to replicate their qualitative insight: "models can generate plausible questions, but there's still a gap to human naturalness."
+
+## GITHUB CONTENT
+-----------------------------------------------------------------------------------------------------
+
+src/
+├── **model.py** - Encapsulate the transformer architecture (with use_resnet toggles and token embedding)             
+├── **train.py** - Contains the `train_model()` loop used across Transformer and GRNN architectures             
+├── **eval.py** - Includes both `test_loss()` for evaluating test performance and `generate_question()` for forward-generating text from a model and image              
+├── **dataset.py** - Customized `VQGTensorDataset` class that can work with raw .jpg images or .pt tensor files           
+├── **utils.py** - Provides support functions for vocabulary construction, token indexing, and preprocessing; includes `build_vocab()` used across training and evaluation             
+├── **config.py** - Stores centralized hyperparameters and device setup for reproducibility and clean tuning             
+├── **prepare_gqa_for_vqg.py** - Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning  
+
+
 
 
 ## PROJECT SETUP INSTRUCTIONS
@@ -35,26 +50,6 @@ We aimed to replicate this result: specifically, the ability of an end-to-end ge
 
 3) Open and run `ImageToQuestion.ipynb` for the full training and evaluation pipeline
 
-
-
-
-## FILE INFO
------------------------------------------------------------------------------------------------------
-**model.py:** Encapsulate the transformer architecture (with use_resnet toggles and token embedding)
-
-**train.py:** Contains the train_model() loop used across transformer and LSTM architectures
-
-**dataset.py:** Customized `VQGTensorDataset` class that can work with raw .jpg images or .pt tensor files
-
-**prepare_gqa_for_vqg.py:** Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning
-
-**config.py:** Stores centralized hyperparameters and device setup for reproducibility and clean tuning
-
-**eval.py:** Includes both `test_loss()` for evaluating test performance and `generate_question()` for forward-generating text from a model and image
-
-**utils.py:** Provides support functions for vocabulary construction, token indexing, and preprocessing; includes `build_vocab()` used across training and evaluation
-
-**Directory structure:**
 
 
 
