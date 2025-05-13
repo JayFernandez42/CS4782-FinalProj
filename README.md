@@ -64,6 +64,10 @@ in eval.py. Image inputs are accepted as raw .jpg files.
 |--------|---------|
 | <img width="791" alt="Screenshot 2025-05-12 at 6 07 54 PM" src="https://github.com/user-attachments/assets/8d49ea0b-1db6-4868-8edd-3790c2c50084" /> | <img width="785" alt="Screenshot 2025-05-12 at 6 09 37 PM" src="https://github.com/user-attachments/assets/e52c7bce-151b-4c70-9516-cb09fa821bf5" /> |
 
+## RESULTS/INSIGHTS
+-----------------------------------------------------------------------------------------------------
+Once again, we could not fully recreate the results under the conditions outlined in the paper due to data limitations. However, aside from this face our model outperformed or performed just as well as the original paper in terms of metrics such as BLEU. We find that in general our questions that we produce have around a 10-15% overlap with the human generated questions, which is a sign of a good result. These results are comparable with those of the paper. However, an insight we gained from this is that it is hard to truly generate the complexity or uniqueness of a human question.
+
 ## CONCLUSION
 -----------------------------------------------------------------------------------------------------
 Our implementation successfully reproduces and extends the original paper's findings using modern deep learning techniques. While transformer-based architectures and pretrained vision encoders offer improvements in question quality and diversity, the core challenge identified in the original paper remains: generating truly human-like questions is difficult. Our results suggest that future work should focus on larger-scale pretraining, more sophisticated evaluation metrics, and integration with conversational systems.
