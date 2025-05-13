@@ -76,15 +76,15 @@ Our implementation successfully reproduces and extends the original paper's find
 ## REFERENCES
 -----------------------------------------------------------------------------------------------------
 
-Mostafazadeh, N., et al. Generating Natural Questions about an Image. arXiv, 2016. [https://arxiv.org/abs/1603.06059](url)
+Mostafazadeh, N., et al. Generating Natural Questions about an Image. arXiv, 2016. [https://arxiv.org/abs/1603.06059]
 
-Hudson, D. A., and Manning, C. D. GQA: A New Dataset for Real-World Visual Reasoning. CVPR, 2019. [https://cs.stanford.edu/people/dorarad/gqa/](url)
+Hudson, D. A., and Manning, C. D. GQA: A New Dataset for Real-World Visual Reasoning. CVPR, 2019. [https://cs.stanford.edu/people/dorarad/gqa/]
 
-He, K., et al. Deep Residual Learning for Image Recognition. CVPR, 2016. [https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py](url)
+He, K., et al. Deep Residual Learning for Image Recognition. CVPR, 2016. [https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py]
 
-Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision. arXiv, 2021. [https://github.com/openai/CLIP](url)
+Radford, A., et al. Learning Transferable Visual Models From Natural Language Supervision. arXiv, 2021. [https://github.com/openai/CLIP]
 
-Sennrich, R., Haddow, B., and Birch, A. Improving Neural Machine Translation Models with Monolingual Data. arXiv, 2015. [https://arxiv.org/abs/1511.06709](url)
+Sennrich, R., Haddow, B., and Birch, A. Improving Neural Machine Translation Models with Monolingual Data. arXiv, 2015. [https://arxiv.org/abs/1511.06709]
 
 ## ACKNOWLEDGEMENTS
 -----------------------------------------------------------------------------------------------------
