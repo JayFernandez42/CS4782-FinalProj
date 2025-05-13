@@ -25,15 +25,13 @@ The original paper benchmarked various generative models, including retrieval-ba
 
 We aimed to replicate this result: specifically, the ability of an end-to-end generative model (in our case, a Transformer-based decoder) to generate abstract, context-aware questions about an image. Our central goal was to replicate their qualitative insight: "models can generate plausible questions, but there's still a gap to human naturalness."
 
-**Directory structure:**
-
 
 ## PROJECT SETUP INSTRUCTIONS
 -----------------------------------------------------------------------------------------------------
 
 1) Clone the repository and place all images and dataset CSVs into the `data/` folder
 
-2) Install dependencies listed in `requirements.txt`
+2) Install dependencies listed in `requirements.txt` (pip install -r requirements.txt)
 
 3) Open and run `ImageToQuestion.ipynb` for the full training and evaluation pipeline
 
@@ -56,6 +54,9 @@ We aimed to replicate this result: specifically, the ability of an end-to-end ge
 
 **utils.py:** Provides support functions for vocabulary construction, token indexing, and preprocessing; includes `build_vocab()` used across training and evaluation
 
+**Directory structure:**
+
+
 
 ## SAMPLE INFERENCE
 -----------------------------------------------------------------------------------------------------
@@ -67,6 +68,9 @@ in eval.py. Image inputs are accepted as raw .jpg files.
 |--------|---------|
 | <img width="791" alt="Screenshot 2025-05-12 at 6 07 54 PM" src="https://github.com/user-attachments/assets/8d49ea0b-1db6-4868-8edd-3790c2c50084" /> | <img width="785" alt="Screenshot 2025-05-12 at 6 09 37 PM" src="https://github.com/user-attachments/assets/e52c7bce-151b-4c70-9516-cb09fa821bf5" /> |
 
+## CONCLUSION
+-----------------------------------------------------------------------------------------------------
+Our implementation successfully reproduces and extends the original paper's findings using modern deep learning techniques. While transformer-based architectures and pretrained vision encoders offer improvements in question quality and diversity, the core challenge identified in the original paper remains: generating truly human-like questions is difficult. Our results suggest that future work should focus on larger-scale pretraining, more sophisticated evaluation metrics, and integration with conversational systems.
 
 
 ## REFERENCES
