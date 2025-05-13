@@ -1,6 +1,17 @@
 torch
 torchvision
-tqdm
-pandas
-nltk
-matplotlib
+transformers
+accelerate
+xformers
+gradio
+peft
+bitsandbytes
+einops
+scipy
+pillow
+opencv-python-headless
+git+https://github.com/huggingface/transformers.git
+git+https://github.com/huggingface/peft.git
+git+https://github.com/openai/CLIP.git
+-f https://data.pyg.org/whl/torch-1.13.0+cpu.html
+torch-scatter

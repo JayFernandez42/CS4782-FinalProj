@@ -29,7 +29,8 @@ def generate_question(model, test_loader, vocab, idx_to_word, device):
     original_question = texts[0]
 
     with torch.no_grad():
-        feat = model.encoder(image)
+        # feat = model.encoder(image)
+        feat = image
         inp = torch.tensor([[vocab["<start>"]]], device=device)
         output = []
         for _ in range(20):

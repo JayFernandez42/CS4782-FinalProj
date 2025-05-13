@@ -17,6 +17,7 @@ def train_model(model, train_loader, val_loader, vocab, criterion, optimizer, de
         model.train()
         total_loss = 0
         for imgs, caps, _ in tqdm(train_loader, desc=f"Epoch {epoch+1}"):
+            print(f"[DEBUG] imgs shape: {imgs.shape}, caps shape: {caps.shape}")
             imgs, caps = imgs.to(device), caps.to(device)
             out = model(imgs, caps)
             loss = criterion(out.view(-1, len(vocab)), caps.view(-1))
@@ -24,19 +25,29 @@ def train_model(model, train_loader, val_loader, vocab, criterion, optimizer, de
             loss.backward()
             optimizer.step()
             total_loss += loss.item()
-        history["train_loss"].append(total_loss / len(train_loader))
 
-        # validation
+        avg_train_loss = total_loss / len(train_loader)
+        history["train_loss"].append(avg_train_loss)
+
+        # Validation
         model.eval()
         val_loss = 0
         with torch.no_grad():
             for imgs, caps, _ in val_loader:
+                print(f"[DEBUG] imgs shape: {imgs.shape}, caps shape: {caps.shape}")
                 imgs, caps = imgs.to(device), caps.to(device)
                 out = model(imgs, caps)
                 loss = criterion(out.view(-1, len(vocab)), caps.view(-1))
                 val_loss += loss.item()
-        history["val_loss"].append(val_loss / len(val_loader))
+
+        avg_val_loss = val_loss / len(val_loader)
+        history["val_loss"].append(avg_val_loss)
+
+        # Print summary after each epoch
+        print(f"Epoch {epoch+1} Summary: Train Loss = {avg_train_loss:.4f}, Val Loss = {avg_val_loss:.4f}")
+
     return history
+
 
 def plot_history(history):
     plt.plot(history["train_loss"], label="Train")

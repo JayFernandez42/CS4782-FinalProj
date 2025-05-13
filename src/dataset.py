@@ -7,51 +7,52 @@ Original file is located at
     https://colab.research.google.com/drive/15lyXSu06z14MKsLJS0LZmEVRnh7U5Hrz
 """
 
+from pathlib import Path
 import os
 import pandas as pd
 import torch
-from torch.utils.data import Dataset, DataLoader
-import re
-from pathlib import Path
-
-TENSOR_ROOT = Path("data") / "tensor_data"
+from torch.utils.data import Dataset
+import nltk
 
 class VQGTensorDataset(Dataset):
-    def __init__(self, csv_path, vocab, max_length=20):
+    def __init__(self, csv_path, vocab, max_length=20, tensor_dir="data"):
         self.df = pd.read_csv(csv_path)
-        self.vocab  = vocab
+        self.vocab = vocab
         self.max_length = max_length
-
-        # dataset.py lives in src/, so project_root is one level up:
-        this_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(this_dir)
-        self.tensor_root = os.path.join(project_root, "data", "tensor_data")
+        self.tensor_dir = Path(tensor_dir)
 
     def __len__(self):
         return len(self.df)
-    
-    def __getitem__(self, idx):
-        row      = self.df.iloc[idx]
-        filename = row["tensor_path"].strip()  # e.g. "bing_val_abc123.pt"
 
-        # ALWAYS prefix with the tensor folder:
-        tensor_path = TENSOR_ROOT / filename      # Path("data/tensor_data/bing_val_abc123.pt")
+    def __getitem__(self, idx):
+        row = self.df.iloc[idx]
+        filename = row["tensor_path"].strip()
+
+        # Route based on filename prefix
+        if filename.startswith("flickr") or filename.startswith("bing"):
+            base_path = self.tensor_dir /  "final_resnet_data" / Path(filename).name
+        elif filename.startswith("coco"):
+            base_path = self.tensor_dir / "final_resnet_data" / Path(filename).name
+        else:
+            base_path = self.tensor_dir / Path(filename).name  # fallback
+
+        tensor_path = base_path.resolve()
 
         if not tensor_path.exists():
             raise FileNotFoundError(f"Tensor not found at {tensor_path}")
 
-        # torch.load accepts a Path, but if yours errors you can cast to str():
         image_tensor = torch.load(tensor_path).float()
 
-        # … your existing question→indices logic …
+        # Tokenize question
         question = str(row["questions"]).split('---')[0].strip().lower()
-        tokens = re.findall(r"\w+|[^\w\s]", question, re.UNICODE)
-
+        tokens = nltk.word_tokenize(question)
         indices = [self.vocab.get(token, self.vocab['<unk>']) for token in tokens]
         indices = [self.vocab['<start>']] + indices + [self.vocab['<end>']]
         indices = indices[:self.max_length] + [self.vocab['<pad>']] * (self.max_length - len(indices))
 
         return image_tensor, torch.tensor(indices), question
+
+
 
 
 
