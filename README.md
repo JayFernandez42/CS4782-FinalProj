@@ -36,6 +36,9 @@ We aimed to replicate this result: specifically, the ability of an end-to-end ge
 ├── **config.py** - Stores centralized hyperparameters and device setup for reproducibility and clean tuning             
 ├── **prepare_gqa_for_vqg.py** - Extracts image-question pairs from the GQA dataset for use in VQG-style fine-tuning  
 
+## RE-IMPLEMENTATION
+-----------------------------------------------------------------------------------------------------
+We used a simple Encoder-Decoder Model where input our image through a CNN and passed the resulting embedding through a series of GRU blocks. Our dataset which we used from the paper consisted of MS COCO, Flickr, and Bing which was a total of 15,000 iamges. However, a major challenge that we had was a lot of the images such as MS COCO were corrupted or the links no longer worked so we had to manually remove them. The evaluation metric we used was BLEU which is an n-gram overlap metric that measures how much our model generated question overlaps with the assigned human generated quesiton; however, we also noticed that it is generally hard to get a high score for this and another challenge is truly being able to compare human and machine gnerated questions.
 
 
 
