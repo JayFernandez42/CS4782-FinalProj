@@ -28,7 +28,6 @@ We aimed to replicate this result: specifically, the ability of an end-to-end ge
 
 ## GITHUB CONTENT
 -----------------------------------------------------------------------------------------------------
-**code** /
 ├── **model.py** - Encapsulate the transformer architecture (with use_resnet toggles and token embedding)             
 ├── **train.py** - Contains the `train_model()` loop used across Transformer and GRNN architectures             
 ├── **eval.py** - Includes both `test_loss()` for evaluating test performance and `generate_question()` for generating text from a model and image              
