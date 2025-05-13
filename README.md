@@ -73,7 +73,7 @@ Once again, we could not fully recreate the results under the conditions outline
 Our implementation successfully reproduces and extends the original paper's findings using modern deep learning techniques. While transformer-based architectures and pretrained vision encoders offer improvements in question quality and diversity, the core challenge identified in the original paper remains: generating truly human-like questions is difficult. Our results suggest that future work should focus on larger-scale pretraining, more sophisticated evaluation metrics, and integration with conversational systems.
 
 
-## REFERENCES
+## REFERENCES (Dataset included in references, too large to import into github directly)
 -----------------------------------------------------------------------------------------------------
 
 Mostafazadeh, N., et al. Generating Natural Questions about an Image. arXiv, 2016. [https://arxiv.org/abs/1603.06059]
