@@ -16,9 +16,10 @@ def train_model(model, train_loader, val_loader, vocab, criterion, optimizer, de
     for epoch in range(epochs):
         model.train()
         total_loss = 0
-        for imgs, caps, _ in tqdm(train_loader, desc=f"Epoch {epoch+1}"):
-            print(f"[DEBUG] imgs shape: {imgs.shape}, caps shape: {caps.shape}")
+        for imgs, caps, _ in tqdm(train_loader, desc=f"Epoch {epoch+1}"): #Modified line
+
             imgs, caps = imgs.to(device), caps.to(device)
+
             out = model(imgs, caps)
             loss = criterion(out.view(-1, len(vocab)), caps.view(-1))
             optimizer.zero_grad()
@@ -34,7 +35,6 @@ def train_model(model, train_loader, val_loader, vocab, criterion, optimizer, de
         val_loss = 0
         with torch.no_grad():
             for imgs, caps, _ in val_loader:
-                print(f"[DEBUG] imgs shape: {imgs.shape}, caps shape: {caps.shape}")
                 imgs, caps = imgs.to(device), caps.to(device)
                 out = model(imgs, caps)
                 loss = criterion(out.view(-1, len(vocab)), caps.view(-1))

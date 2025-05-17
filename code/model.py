@@ -53,7 +53,7 @@ class DecoderLSTM(nn.Module):
         return logits
 
 class DecoderTransformer(nn.Module):
-    def __init__(self, embed_size, vocab_size, num_heads=4, num_layers=2):
+    def __init__(self, embed_size, vocab_size, num_heads=8, num_layers=6, max_len = 20):
         super().__init__()
         self.embed = nn.Sequential(
             nn.Embedding(vocab_size, embed_size),
@@ -65,6 +65,8 @@ class DecoderTransformer(nn.Module):
             nn.Linear(embed_size, vocab_size),
             nn.BatchNorm1d(vocab_size)
         )
+        self.pos_embed = nn.Parameter(torch.zeros(1, max_len, embed_size))  # add max_len arg
+
 
     def forward(self, features, captions):
         emb = self.embed[0](captions)
@@ -72,6 +74,7 @@ class DecoderTransformer(nn.Module):
         emb = self.embed[1](emb.view(-1, E)).view(B, T, E)
 
         inputs = torch.cat((features.unsqueeze(1), emb[:, :-1, :]), dim=1)
+        inputs = inputs + self.pos_embed[:, :inputs.size(1), :]
         out = self.transformer(inputs)
         logits = self.linear[0](out)
         logits = self.linear[1](logits.view(-1, logits.size(-1))).view(*logits.shape)
@@ -118,7 +121,7 @@ class LSTMModel(nn.Module):
 
 
 class ClipTransformerModel(nn.Module):
-    def __init__(self, embed_size, vocab_size, num_heads=4, num_layers=2, use_clip=True):
+    def __init__(self, embed_size, vocab_size, num_heads=4, num_layers=4, use_clip=True):
         super().__init__()
         self.use_clip = use_clip
 
@@ -171,7 +174,7 @@ class ClipTransformerModel(nn.Module):
 #         return self.decoder(projected_feats, captions)
 
 class TransformerModel(nn.Module):
-    def __init__(self, embed_size, vocab_size, num_heads=4, num_layers=2, use_resnet=True):
+    def __init__(self, embed_size, vocab_size, num_heads=4, num_layers=4, use_resnet=True):
         super().__init__()
         self.use_resnet = use_resnet
 

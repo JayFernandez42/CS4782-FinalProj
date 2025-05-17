@@ -12,7 +12,7 @@ from collections import defaultdict
 project_root = Path(__file__).resolve().parent.parent
 IMAGE_DIR = project_root / "data" / "gqa" / "images"
 TENSOR_DIR = project_root / "data" / "gqa_resnet_data"
-CSV_OUTPUT = project_root / "data" / "gqa_pretrain50k.csv"
+CSV_OUTPUT = project_root / "data" / "gqa_pretrain100k.csv"
 WEIGHTS_PATH = project_root / "resnet50-0676ba61.pth"
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -90,4 +90,4 @@ def process_gqa_subset(num_unique_images: int):
     
     print(f"✅ Saved {len(rows)} rows for {processed} unique images to {CSV_OUTPUT}")
 
-process_gqa_subset(50000)
+process_gqa_subset(100000)

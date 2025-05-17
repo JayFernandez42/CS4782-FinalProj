@@ -14,43 +14,41 @@ import torch
 from torch.utils.data import Dataset
 import nltk
 
+import os
+import pandas as pd
+import torch
+from torch.utils.data import Dataset
+import nltk
+
 class VQGTensorDataset(Dataset):
-    def __init__(self, csv_path, vocab, max_length=20, tensor_dir="data"):
-        self.df = pd.read_csv(csv_path)
+    def __init__(self, csv_path, vocab, max_length=20, tensor_dir="/Users/jacobfernandez/Desktop/CornellMEngSP25/DeepLearning/FinalProject/github/data/gqa_resnet_data"):
+        # self.df = pd.read_csv(csv_path)
+        self.df = csv_path
         self.vocab = vocab
         self.max_length = max_length
-        self.tensor_dir = Path(tensor_dir)
+        self.tensor_dir = tensor_dir
 
     def __len__(self):
         return len(self.df)
 
     def __getitem__(self, idx):
         row = self.df.iloc[idx]
-        filename = row["tensor_path"].strip()
-
-        # Route based on filename prefix
-        if filename.startswith("flickr") or filename.startswith("bing"):
-            base_path = self.tensor_dir /  "final_resnet_data" / Path(filename).name
-        elif filename.startswith("coco"):
-            base_path = self.tensor_dir / "final_resnet_data" / Path(filename).name
-        else:
-            base_path = self.tensor_dir / Path(filename).name  # fallback
-
-        tensor_path = base_path.resolve()
-
-        if not tensor_path.exists():
+        tensor_path = os.path.join(self.tensor_dir, f"{row['tensor_path']}")
+        
+        if not os.path.exists(tensor_path):
+            print(f"❌ Missing file: {tensor_path}")
             raise FileNotFoundError(f"Tensor not found at {tensor_path}")
-
-        image_tensor = torch.load(tensor_path).float()
-
-        # Tokenize question
-        question = str(row["questions"]).split('---')[0].strip().lower()
+    
+        tensor = torch.load(tensor_path)
+        tensor = torch.load(tensor_path).float()
+        question = str(row["questions"]).strip().lower()
         tokens = nltk.word_tokenize(question)
-        indices = [self.vocab.get(token, self.vocab['<unk>']) for token in tokens]
-        indices = [self.vocab['<start>']] + indices + [self.vocab['<end>']]
-        indices = indices[:self.max_length] + [self.vocab['<pad>']] * (self.max_length - len(indices))
+        indexed_tokens = [self.vocab.get(token, self.vocab["<unk>"]) for token in tokens]
+        padded_tokens = indexed_tokens[:self.max_length] + [self.vocab["<pad>"]] * max(0, self.max_length - len(indexed_tokens))
 
-        return image_tensor, torch.tensor(indices), question
+        return tensor, torch.tensor(padded_tokens), question
+
+
 
 
 
@@ -94,3 +92,6 @@ def create_dataloaders(dataset_paths, vocab, batch_size, max_length):
             dataset = VQGTensorDataset(path, vocab, max_length)
             loaders[domain][split] = DataLoader(dataset, batch_size=batch_size, shuffle=(split == "train"))
     return loaders
+
+
+
